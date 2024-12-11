@@ -17,10 +17,10 @@ def home(request):
 		user = authenticate(request, username=username, password=password)
 		if user is not None:
 			login(request, user)
-			messages.success(request, "you in boi!")
+			messages.success(request, "Yay! Login Successful.")
 			return redirect('home')
 		else:
-			messages.success(request, "There Was An Error Logging In, Please Try Again...")
+			messages.success(request, "Aww. Error Logging In.")
 			return redirect('home')	
 	else:		
 		return render(request, 'home.html', {'records':records})
@@ -28,7 +28,7 @@ def home(request):
 
 def logout_user(request):
 	logout(request)
-	messages.success(request, "You Have Been Logged Out...")
+	messages.success(request, "Bye. You Have Been Logged Out.")
 	return redirect('home')
 
 
@@ -42,7 +42,7 @@ def register_user(request):
 			password = form.cleaned_data['password1']
 			user = authenticate(username=username, password=password)
 			login(request, user)
-			messages.success(request, "You Have Successfully Registered! Welcome!")
+			messages.success(request, "Yay! Registration Successful.")
 			return redirect('home')
 	else:
 		form = SignUpForm()
@@ -57,7 +57,7 @@ def customer_record(request, pk):
 		customer_record = Record.objects.get(id=pk)
 		return render(request, 'record.html', {'customer_record':customer_record})
 	else:
-	 	messages.success(request, "You Must Be Logged In To View That Page...")
+	 	messages.success(request, "Tsk. You Must Be Logged In To View That Page.")
 	 	return redirect('home')
 
 
@@ -65,10 +65,10 @@ def delete_record(request, pk):
 	if request.user.is_authenticated:
 		delete_it = Record.objects.get(id=pk)
 		delete_it.delete()
-		messages.success(request, "Records Deleted Successfully!")
+		messages.success(request, "Ooh. Record Deleted Successfully.")
 		return redirect('home')
 	else:
-		messages.success(request, "You Must Be Logged In To Do That...")
+		messages.success(request, "Tsk. You Must Be Logged In To Do That.")
 		return redirect('home')
 
 def add_record(request):
@@ -77,11 +77,11 @@ def add_record(request):
 			if request.method == "POST":
 				if form.is_valid():
 					add_record = form.save()
-					messages.success(request, "Record Added...")
+					messages.success(request, "Ooh. Record Added.")
 					return redirect('home')
 			return render(request, 'add_record.html', {'form':form})
 		else:
-			messages.success(request, "You Must Be Logged In...")
+			messages.success(request, "Tsk. You Must Be Logged In To Do That.")
 			return redirect('home')
 
 def update_record(request, pk):
@@ -90,9 +90,9 @@ def update_record(request, pk):
 		form = AddRecordForm(request.POST or None, instance=current_record)
 		if form.is_valid():
 			form.save()
-			messages.success(request, "Record Has Been Updated!")
+			messages.success(request, "Ooh. Record Updated.")
 			return redirect('home')
 		return render(request, 'update_record.html', {'form':form})
 	else:
-		messages.success(request, "You Must Be Logged In...")
+		messages.success(request, "Tsk. You Must Be Logged In To Do That.")
 		return redirect('home')

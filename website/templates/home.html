@@ -4,9 +4,9 @@
 
 {% if user.is_authenticated %}
 
-<h1>Literatura</h1>
+<h1>Weekly Shonen Jump</h1>
 <table class="table table-striped table-hover table-bordered">
-  <thead class="table-dark">
+  <thead class="table-warning">
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Title</th>
@@ -43,7 +43,6 @@
 
 <div class="col-md-6 offset-md-3">
 <h1>Login</h1>
-<h6>hehe</h6>
 
 <form method="POST" action="{% url 'home' %}">
 	{% csrf_token %}
@@ -55,9 +54,9 @@
   </div>
   <div class="mb-3 form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
-    <label class="form-check-label" for="exampleCheck1">check kung gusto mo mamatay</label>
+    <label class="form-check-label" for="exampleCheck1">pa-check para happy</label>
   </div>
-  <button type="submit" class="btn btn-secondary">Login</button>
+  <button type="submit" class="btn btn-primary">Enter</button>
 </form>
 
 {% endif %}
